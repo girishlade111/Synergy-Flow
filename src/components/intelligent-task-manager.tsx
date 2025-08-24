@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react";
 import { prioritizeTasks } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,7 +47,7 @@ function SubmitButton() {
 
 export default function IntelligentTaskManager() {
   const [open, setOpen] = React.useState(false);
-  const [state, formAction] = useFormState(prioritizeTasks, initialState);
+  const [state, formAction] = useActionState(prioritizeTasks, initialState);
   const { toast } = useToast();
 
   React.useEffect(() => {

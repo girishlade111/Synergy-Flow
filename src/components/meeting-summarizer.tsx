@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react";
 import { summarizeDiscussion } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,7 +52,7 @@ export default function MeetingSummarizer({
   discussionText,
 }: MeetingSummarizerProps) {
   const [open, setOpen] = React.useState(false);
-  const [state, formAction] = useFormState(summarizeDiscussion, initialState);
+  const [state, formAction] = useActionState(summarizeDiscussion, initialState);
   const { toast } = useToast();
 
   const handleSummarize = (formData: FormData) => {
