@@ -28,6 +28,16 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
     setSelectedChannelId(channel.id);
   }, []);
 
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <SidebarProvider>
       <Sidebar
