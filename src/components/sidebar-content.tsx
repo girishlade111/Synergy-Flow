@@ -19,13 +19,13 @@ import type { Channel } from "@/lib/types";
 
 interface SidebarContentProps {
   channels: Channel[];
-  selectedChannel: Channel | null;
+  selectedChannelId: string | null;
   onSelectChannel: (channel: Channel) => void;
 }
 
 export default function SidebarContentComponent({
   channels,
-  selectedChannel,
+  selectedChannelId,
   onSelectChannel,
 }: SidebarContentProps) {
   return (
@@ -66,7 +66,7 @@ export default function SidebarContentComponent({
             <SidebarMenuItem key={channel.id}>
               <SidebarMenuButton
                 onClick={() => onSelectChannel(channel)}
-                isActive={selectedChannel?.id === channel.id}
+                isActive={selectedChannelId === channel.id}
                 tooltip={channel.name}
               >
                 <Hash />

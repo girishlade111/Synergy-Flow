@@ -24,9 +24,18 @@ import type { Channel } from "@/lib/types";
 import { channels } from "@/lib/data";
 
 export default function Dashboard() {
-  const [selectedChannel, setSelectedChannel] = React.useState<Channel>(
-    channels[0]
+  const [selectedChannelId, setSelectedChannelId] = React.useState<string>(
+    channels[0].id
   );
+
+  const selectedChannel = React.useMemo(
+    () => channels.find((c) => c.id === selectedChannelId),
+    [selectedChannelId]
+  );
+  
+  const handleSelectChannel = React.useCallback((channel: Channel) => {
+    setSelectedChannelId(channel.id);
+  }, []);
 
   return (
     <SidebarProvider>
@@ -45,8 +54,8 @@ export default function Dashboard() {
         <SidebarContent>
           <SidebarContentComponent
             channels={channels}
-            selectedChannel={selectedChannel}
-            onSelectChannel={setSelectedChannel}
+            selectedChannelId={selectedChannelId}
+            onSelectChannel={handleSelectChannel}
           />
         </SidebarContent>
         <Separator />
