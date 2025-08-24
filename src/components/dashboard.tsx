@@ -18,6 +18,7 @@ import SidebarContentComponent from "@/components/sidebar-content";
 import UserProfile from "@/components/user-profile";
 import type { Channel } from "@/lib/types";
 import { channels } from "@/lib/data";
+import Footer from "./footer";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const [selectedChannelId, setSelectedChannelId] = React.useState<string>(
@@ -65,7 +66,12 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        {children}
+        <div className="flex flex-col min-h-screen">
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
