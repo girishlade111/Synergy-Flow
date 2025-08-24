@@ -16,7 +16,7 @@ export default {
         lato: ['Lato', 'sans-serif'],
         'open-sans': ['"Open Sans"', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['var(--font-body)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

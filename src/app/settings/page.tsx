@@ -36,11 +36,18 @@ export default function SettingsPage() {
 
   useEffect(() => {
     setMounted(true);
-    const savedFont = localStorage.getItem("synergyflow-font") || "font-body";
-    setFont(savedFont);
-    document.body.classList.remove(...fonts.map(f => f.value));
-    document.body.classList.add(savedFont);
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      const savedFont = localStorage.getItem("synergyflow-font") || "font-body";
+      setFont(savedFont);
+      document.body.classList.remove(...fonts.map(f => f.value).filter(f => f !== savedFont));
+      if (!document.body.classList.contains(savedFont)) {
+        document.body.classList.add(savedFont);
+      }
+    }
+  }, [mounted]);
 
   const handleThemeChange = (isDark: boolean) => {
     setTheme(isDark ? "dark" : "light");
