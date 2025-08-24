@@ -15,6 +15,11 @@ export default function WorkTimer() {
   const [timeLeft, setTimeLeft] = React.useState(WORK_DURATION);
   const [isActive, setIsActive] = React.useState(false);
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   React.useEffect(() => {
     if (isActive) {
@@ -57,6 +62,10 @@ export default function WorkTimer() {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <Popover>
