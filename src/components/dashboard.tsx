@@ -9,28 +9,19 @@ import {
   SidebarFooter,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 import {
   Tooltip,
-  TooltipContent,
-  TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { LayoutGrid, Settings } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import SidebarContentComponent from "@/components/sidebar-content";
-import ChannelView from "@/components/channel-view";
 import UserProfile from "@/components/user-profile";
 import type { Channel } from "@/lib/types";
 import { channels } from "@/lib/data";
 
-export default function Dashboard() {
+export default function Dashboard({ children }: { children: React.ReactNode }) {
   const [selectedChannelId, setSelectedChannelId] = React.useState<string>(
     channels[0].id
-  );
-
-  const selectedChannel = React.useMemo(
-    () => channels.find((c) => c.id === selectedChannelId),
-    [selectedChannelId]
   );
   
   const handleSelectChannel = React.useCallback((channel: Channel) => {
@@ -64,13 +55,7 @@ export default function Dashboard() {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        {selectedChannel ? (
-          <ChannelView key={selectedChannel.id} channel={selectedChannel} />
-        ) : (
-          <div className="flex h-full items-center justify-center bg-muted">
-            <p>Select a channel to start</p>
-          </div>
-        )}
+        {children}
       </SidebarInset>
     </SidebarProvider>
   );

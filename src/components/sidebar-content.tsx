@@ -16,6 +16,8 @@ import {
   Hash,
 } from "lucide-react";
 import type { Channel } from "@/lib/types";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface SidebarContentProps {
   channels: Channel[];
@@ -28,33 +30,43 @@ export default function SidebarContentComponent({
   selectedChannelId,
   onSelectChannel,
 }: SidebarContentProps) {
+  const pathname = usePathname();
+
   return (
     <div className="flex flex-col gap-4">
       <SidebarGroup>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Home">
-              <Home />
-              Home
-            </SidebarMenuButton>
+            <Link href="/" passHref>
+              <SidebarMenuButton tooltip="Home" isActive={pathname === '/'}>
+                <Home />
+                Home
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Team">
-              <Users />
-              Team
-            </SidebarMenuButton>
+            <Link href="/team" passHref>
+              <SidebarMenuButton tooltip="Team" isActive={pathname === '/team'}>
+                <Users />
+                Team
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Projects">
-              <Folder />
-              Projects
-            </SidebarMenuButton>
+            <Link href="/projects" passHref>
+              <SidebarMenuButton tooltip="Projects" isActive={pathname === '/projects'}>
+                <Folder />
+                Projects
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Settings">
-              <Settings />
-              Settings
-            </SidebarMenuButton>
+            <Link href="/settings" passHref>
+              <SidebarMenuButton tooltip="Settings" isActive={pathname === '/settings'}>
+                <Settings />
+                Settings
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroup>
@@ -64,14 +76,16 @@ export default function SidebarContentComponent({
         <SidebarMenu>
           {channels.map((channel) => (
             <SidebarMenuItem key={channel.id}>
-              <SidebarMenuButton
-                onClick={() => onSelectChannel(channel)}
-                isActive={selectedChannelId === channel.id}
-                tooltip={channel.name}
-              >
-                <Hash />
-                {channel.name}
-              </SidebarMenuButton>
+              <Link href={`/?channel=${channel.id}`} passHref>
+                <SidebarMenuButton
+                  onClick={() => onSelectChannel(channel)}
+                  isActive={selectedChannelId === channel.id && pathname === '/'}
+                  tooltip={channel.name}
+                >
+                  <Hash />
+                  {channel.name}
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
